@@ -83,6 +83,8 @@ cultivar_label_posteriors = [posterior_1, posterior_2, posterior_3]
 means = [label_1_means, label_2_means, label_3_means]
 stdevs = [label_1_stdev, label_2_stdev, label_3_stdev]
 
+determined_labels = []
+
 # Begin the calculation
 for row_index, row in test_data.iterrows():
     print("\n\n***************************")
@@ -124,15 +126,20 @@ for row_index, row in test_data.iterrows():
 
         print(f"\n >>>>>>>> P(cultivar == {label_idx + 1} | {','.join(feature_list)}): {label_probability}")
 
+    # To get the final value, we just get the index in the label probabilities and offset the value by 1
+    final_cultivar = cultivar_label_bayes_probabilities.index(max(cultivar_label_bayes_probabilities)) + 1
+    determined_labels.append(final_cultivar)
+
     print(f"\n ================ RESULTS FOR ROW {row_index + 1} =================")
     print("Given the following Bayes posteriors for each label:")
 
     for result_idx, result in enumerate(cultivar_label_bayes_probabilities):
         print(f"P(cultivar == {result_idx + 1}): {result}")
 
-    # To get the final value, we just get the index in the label probabilities and offset the value by 1
-    final_cultivar = cultivar_label_bayes_probabilities.index(max(cultivar_label_bayes_probabilities)) + 1
     print(f"ROW {row_index + 1} is probably Cultivar {final_cultivar}")
 
+# Adjust the DataFrame to the determined cultivar label
+test_data.insert(loc=0, column='cultivar', value=determined_labels)
 
-print("Hello")
+print("Final Test Dataset:")
+print(test_data.to_string())
