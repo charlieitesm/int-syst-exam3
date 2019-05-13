@@ -59,10 +59,10 @@ label_1_means = label_1.mean(axis=0)
 label_2_means = label_2.mean(axis=0)
 label_3_means = label_3.mean(axis=0)
 
-# We pass ddof to calculate the Population Std Dev, by default Pandas uses a ddof=1 which is for the Sample Std Dev
-label_1_stdev = label_1.std(axis=0, ddof=0)
-label_2_stdev = label_2.std(axis=0, ddof=0)
-label_3_stdev = label_3.std(axis=0, ddof=0)
+# We pass ddof to calculate the Sample Std Dev
+label_1_stdev = label_1.std(axis=0, ddof=1)
+label_2_stdev = label_2.std(axis=0, ddof=1)
+label_3_stdev = label_3.std(axis=0, ddof=1)
 
 # Read the test dataset
 test_data = pd.read_csv("../Jupyter/wineTestModel.csv", skipinitialspace=True, skip_blank_lines=True)
