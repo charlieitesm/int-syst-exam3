@@ -51,9 +51,9 @@ data.sort_values("cultivar", inplace=True)
 
 wine_possible_labels = data["cultivar"].unique()
 
-label_1 = data.loc[data['cultivar'] == 1]
-label_2 = data.loc[data['cultivar'] == 2]
-label_3 = data.loc[data['cultivar'] == 3]
+label_1 = data.loc[data['cultivar'] == 1].drop("cultivar", axis=1)
+label_2 = data.loc[data['cultivar'] == 2].drop("cultivar", axis=1)
+label_3 = data.loc[data['cultivar'] == 3].drop("cultivar", axis=1)
 
 label_1_means = label_1.mean(axis=0)
 label_2_means = label_2.mean(axis=0)
